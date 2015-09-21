@@ -1,0 +1,34 @@
+containers:
+  apache-backend-eg:
+    scheduler: random
+    availability: per-pool
+    instances:
+      min: 3
+      max: 3
+      default: 3
+    config:
+      image: "stackhub/apache-backend-eg:latest"
+      ports:
+        - protocol: tcp
+          container_port: "80"
+    host_config:
+      restart_policy: {}
+  haproxy:
+    scheduler: random
+    availability: per-pool
+    instances:
+      min: 1
+      max: 1
+      default: 1
+    config:
+      image: "stackhub/haproxy:latest"
+      env:
+        SE_API_TOKEN: e160407e217f6bec
+        SE_BACKEND_KEY: apps/haproxy-apache-apache-backend-eg-80/containers
+        SE_BACKEND_RANGE: "/apps/haproxy-apache-apache-backend-eg-80/containers/*"
+      ports:
+        - host_port: "8888"
+          protocol: tcp
+          container_port: "5000"
+    host_config:
+      restart_policy: {}

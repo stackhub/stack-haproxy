@@ -21,7 +21,7 @@ containers:
       max: 1
       default: 1
     config:
-      image: "behemphi/haproxy:latest"
+      image: "stackhub/haproxy:latest"
       env:
         SE_API_TOKEN: c7d728cb050bb558
         SE_BACKEND_KEY: apps/dynamic-haproxy-nginx-backend-eg-80/containers
