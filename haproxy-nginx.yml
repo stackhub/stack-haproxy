@@ -27,8 +27,12 @@ containers:
         SE_BACKEND_KEY: apps/dynamic-haproxy-nginx-backend-eg-80/containers
         SE_BACKEND_RANGE: "/apps/dynamic-haproxy-nginx-backend-eg-80/containers/*"
       ports:
-        - host_port: "80"
-          protocol: tcp
+        - protocol: tcp
+          host_port: "80"
           container_port: "5000"
+        - host_port: "1936"
+          protocol: tcp
+          container_port: "1936"
     host_config:
       restart_policy: {}
+
