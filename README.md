@@ -10,20 +10,20 @@ service.
 
 * SE_API_TOKEN:  This is your Container Application Center (CAC) API Token. 
   It is used by `confd` to connect to the CAC Service Discovery layer.
-* SE_BACKEND_KEY: The service discovery key to check for changes. Backends
-  to `haproxy` are written based on the values of these keys. (See below
-  for how to construct them.)
-* SE_BACKEND_RANGE: In most cases this will be nearly identical to the KEY. 
-  (See below for how to construct them.)
+* SE_SERVICE_DISCOVERY_KEY: The portion of the service discovery 
+  key to check for changes. Backends to `haproxy` are written based on 
+  the values of these keys. (See below for how to construct them.)
+* SE_LEADER_IP: The private IP address of the mesh leader.  
 
 ## Constructing a Service Discovery Key and Range
 
 The construction of a Service Discovery key is done as follows:
 
-* "apps/" + {{application_name}} + "-" + {{service_name}} + "-" + {{exposed_ port}} + "/containers"
+* {{application_instance_name}} + "-" + {{service_name}} + "-" 
+  + {{exposed_ port}} 
 
-The `application_name` is what you set when clicking the "New Application" 
-button from the "Applications" menu choice.
+The `application_instance_name` is what you set when clicking the
+"Launch" button.
 
 The `service_name` is defined when dragging a component into the editor 
 graphically as the "Name".  It is also seen as the service name in the YAML.
@@ -31,7 +31,7 @@ graphically as the "Name".  It is also seen as the service name in the YAML.
 The `exposed_port` is the _internally_ exposed port for the backend container. 
 For both nginx and apache this will be 80.   
 
-In the case of `haproxy-backend.yml`, that would be the line reading 
+In the case of `haproxy-nginx.yml`, that would be the line reading 
 "nginx-backend-eg".
 
 So, given that you name an application "haproxy-test" and the nginx backends

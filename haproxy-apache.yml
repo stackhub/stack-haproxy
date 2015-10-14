@@ -21,11 +21,11 @@ containers:
       max: 1
       default: 1
     config:
-      image: "stackhub/haproxy:latest"
+      image: "stackhub/haproxy:0.2.0"
       env:
-        SE_API_TOKEN: e160407e217f6bec
-        SE_BACKEND_KEY: apps/haproxy-apache-apache-backend-eg-80/containers
-        SE_BACKEND_RANGE: "/apps/haproxy-apache-apache-backend-eg-80/containers/*"
+        SE_API_TOKEN: 0c4c498808fc0b79
+        SE_LEADER_IP: 172.31.19.80
+        SE_SERVICE_DISCOVERY_KEY: haproxy-apache-apache-backend-eg-80
       ports:
         - protocol: tcp
           host_port: "80"
