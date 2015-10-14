@@ -40,6 +40,11 @@ would have the service discovery key:
 
 `haproxy-test-my-backend-80` 
 
+# Questions
+
+Visit the [StackEngine community](http://community.stackengine.com) 
+to get help or make a suggestion. 
+
 # Contributing
 
 If you would like to contribute to this project, please follow the standard
