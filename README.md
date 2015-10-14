@@ -10,10 +10,10 @@ service.
 
 * SE_API_TOKEN:  This is your Container Application Center (CAC) API Token. 
   It is used by `confd` to connect to the CAC Service Discovery layer.
+* SE_LEADER_IP: The private IP address of the mesh leader.  
 * SE_SERVICE_DISCOVERY_KEY: The portion of the service discovery 
   key to check for changes. Backends to `haproxy` are written based on 
   the values of these keys. (See below for how to construct them.)
-* SE_LEADER_IP: The private IP address of the mesh leader.  
 
 ## Constructing a Service Discovery Key and Range
 
@@ -36,13 +36,9 @@ In the case of `haproxy-nginx.yml`, that would be the line reading
 
 So, given that you name an application "haproxy-test" and the nginx backends
 "my-backend", and that nginx is listening on port 80 inside the container you 
-would have the key:
+would have the service discovery key:
 
-`apps/haproxy-test-my-backend-80/containers` 
-
-and the range would be:
-
-`/apps/haproxy-test-my-backend-80/containers/*`
+`haproxy-test-my-backend-80` 
 
 # Contributing
 
