@@ -1,37 +1,16 @@
-containers:
-  apache-backend-eg:
-    scheduler: random
-    availability: per-pool
-    instances:
-      min: 3
-      max: 3
-      default: 3
-    config:
-      image: "stackhub/apache-backend-eg:latest"
-      ports:
-        - protocol: tcp
-          container_port: "80"
-    host_config:
-      restart_policy: {}
-  haproxy:
-    scheduler: random
-    availability: per-pool
-    instances:
-      min: 1
-      max: 1
-      default: 1
-    config:
-      image: "stackhub/haproxy:latest"
-      env:
-        SE_API_TOKEN: 0c4c498808fc0b79
-        SE_LEADER_IP: 172.31.19.80
-        SE_SERVICE_DISCOVERY_KEY: haproxy-apache-apache-backend-eg-80
-      ports:
-        - protocol: tcp
-          host_port: "80"
-          container_port: "5000"
-        - host_port: "1936"
-          protocol: tcp
-          container_port: "1936"
-    host_config:
-      restart_policy: {}
+backend:
+  image: "stackhub/apache-backend-eg:latest"
+  environment:
+    - constraint:pool_id==default
+  ports:
+    - 80/tcp
+loadbalancer:
+  image: "stackhub/haproxy:1.2"
+  environment:
+    - "STACKENGINE_API_TOKEN={{api_token}}"
+    - "STACKENGINE_LEADER_IP={{kv_get \"stackengine/mesh/leader_ip\"}}"
+    - "STACKENGINE_BACKEND_KEY={{sd_deployment_containers_path \"apache-backend-eg\" 80}}"
+    - "STACKENGINE_HEALTHCHECK_HTTP=http://:8886/?timeout=10s&interval=30s"
+  ports:
+    - "8886:5000/tcp"
+    - "1936:1936/tcp"
